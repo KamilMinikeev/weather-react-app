@@ -1,0 +1,176 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-size: 18px;
+    line-height: 23px;
+    color: #000;
+}
+button {
+    cursor: pointer;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+img {
+    width: 100%;
+    height: auto;
+}
+h1,
+h2,
+h3,
+p,
+span {
+    margin: 0;
+    padding: 0;
+}
+ul {
+    list-style: none;
+}
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.button {
+    padding: 20px 10px;
+    text-align: center;
+    color: #ffffff;
+    font-family: "Montserrat-Bold";
+    font-weight: 700;
+    height: 60px;
+    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 17px;
+    background: linear-gradient(94.85deg, #0ad700 20.34%, #079900 91.11%),
+        linear-gradient(94.85deg, #f9d500 20.34%, #ffa602 91.11%);
+    box-shadow: 0px 4px 0px #067c00;
+    border-radius: 177px;
+    padding: 10px 20px;
+    position: relative;
+    overflow: hidden;
+    width: 200px;
+    border: none;
+}
+.button:hover {
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
+        linear-gradient(94.85deg, #0ad700 20.34%, #079900 91.11%),
+        linear-gradient(94.85deg, #f9d500 20.34%, #ffa602 91.11%);
+    box-shadow: 0px 4px 0px #067c00;
+    border-radius: 177px;
+}
+.button:active {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+        linear-gradient(94.85deg, #0ad700 20.34%, #079900 91.11%),
+        linear-gradient(94.85deg, #f9d500 20.34%, #ffa602 91.11%);
+    border-radius: 177px;
+}
+
+.header {
+    padding: 30px 0;
+    background: #54c633;
+    &__content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .logo {
+        width: 100px;
+    }
+    &__links {
+        display: flex;
+        align-items: center;
+        li {
+            font-size: 22px;
+            line-height: 30px;
+            cursor: pointer;
+            transition: all 0.2s linear;
+            color: #fff;
+        }
+        li:first-child {
+            margin-right: 30px;
+        }
+    }
+}
+
+.content {
+    padding-top: 30px;
+    &__menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 100px;
+    }
+    &__btn:first-child {
+        margin-right: 30px;
+    }
+}
+
+.time {
+    margin-top: 50px;
+    &__title {
+        margin-bottom: 20px;
+    }
+    &__content {
+        font-size: 70px;
+        line-height: 95px;
+        font-weight: bold;
+        color: green;
+    }
+}
+
+.weather {
+    margin-top: 70px;
+    &__choice {
+        margin-bottom: 40px;
+        display: flex;
+        flex-direction: column;
+    }
+    label {
+        font-size: 20px;
+        line-height: 25px;
+    }
+    option {
+        font-size: 18px;
+        line-height: 23px;
+    }
+    select {
+        margin-top: 5px;
+        width: 200px;
+        height: 40px;
+        cursor: pointer;
+    }
+    &__title {
+        margin-bottom: 20px;
+    }
+    &__search {
+        display: flex;
+        align-items: center;
+    }
+    &__input {
+        border: 1px solid #000;
+        height: 60px;
+        border-radius: 10px;
+        margin-right: 10px;
+        padding: 5px 10px 5px 10px;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 28px;
+    }
+    &__content {
+        margin-top: 20px;
+        font-size: 22px;
+        line-height: 30px;
+    }
+    &__error {
+        color: red;
+        font-size: 22px;
+        line-height: 30px;
+        font-weight: 600;
+    }
+}
