@@ -56,19 +56,19 @@ ul {
     overflow: hidden;
     width: 200px;
     border: none;
-}
-.button:hover {
-    background: linear-gradient(0deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
-        linear-gradient(94.85deg, #0ad700 20.34%, #079900 91.11%),
-        linear-gradient(94.85deg, #f9d500 20.34%, #ffa602 91.11%);
-    box-shadow: 0px 4px 0px #067c00;
-    border-radius: 177px;
-}
-.button:active {
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
-        linear-gradient(94.85deg, #0ad700 20.34%, #079900 91.11%),
-        linear-gradient(94.85deg, #f9d500 20.34%, #ffa602 91.11%);
-    border-radius: 177px;
+    &:hover {
+        background: linear-gradient(0deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
+            linear-gradient(94.85deg, #0ad700 20.34%, #079900 91.11%),
+            linear-gradient(94.85deg, #f9d500 20.34%, #ffa602 91.11%);
+        box-shadow: 0px 4px 0px #067c00;
+        border-radius: 177px;
+    }
+    &:active {
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+            linear-gradient(94.85deg, #0ad700 20.34%, #079900 91.11%),
+            linear-gradient(94.85deg, #f9d500 20.34%, #ffa602 91.11%);
+        border-radius: 177px;
+    }
 }
 
 .header {

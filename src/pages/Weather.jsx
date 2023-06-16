@@ -1,60 +1,97 @@
 import React, { useState } from 'react'
 
+
+const WEATHER_API_KEY = 'fd0bbbff6d724607a39184301230706';
+const OPENWEATHERMAP_API_KEY = 'b96b421a920d283d73d38c697fba4b96';
+
 export const Weather = () => {
 
     const [value, setValue] = useState('');
-    const [weather, setWeather] = useState({
-        city: '',
-        temp: '',
-        country: '',
-        localtime: '',
-    });
-    const [searched, isSearched] = useState(false);
+    const [weather, setWeather] = useState(null);
+    const [state, setState] = useState(false);
+    //const [choice, setChoice] = useState('weather1');
 
-    const [choice, setChoice] = useState('weather1');
-
+    const [choice, setChoice] = useState('');
 
     const chooseWeather = (e) => {
         setChoice(e.target.value)
     }
+
+
+    const fetchWeatherData = (url, transformData) => {
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                const transformedData = transformData(data);
+                setWeather(transformedData);
+                setState(true);
+            })
+            .catch(() => {
+                setState(false);
+                alert('На данный момент выбранный сервис недоступен. Пожалуйста, выберете другой или попробуйте позже')
+            });
+    };
+
     const showWeather = () => {
 
-        if (choice == 'weather1') {
-            fetch(`http://api.weatherapi.com/v1/current.json?key=fd0bbbff6d724607a39184301230706&q=${value}&aqi=no`)
-                .then((response) => {
-                    return response.json();
-                })
-                .then((data) => {
+        if (choice === 'weather1') {
 
+            if (checkEmptyValue()) {
+                const url = `http://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&q=${value}&aqi=no`;
+
+                const transformData = (data) => {
                     if (data.error) {
-                        setWeather('error');
+                        return 'error';
+                    } else {
+                        return {
+                            city: data.location.name,
+                            temp: data.current.temp_c,
+                            country: data.location.country,
+                            localtime: data.location.localtime,
+                        };
                     }
-                    else {
-                        setWeather({ city: data.location.name, temp: data.current.temp_c, country: data.location.country, localtime: data.location.localtime });
-                    }
+                };
+                fetchWeatherData(url, transformData);
 
-                    isSearched(true);
-                });
+            }
         }
 
-        if (choice == 'weather2') {
-            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${value}&appid=b96b421a920d283d73d38c697fba4b96`)
-                .then((response) => {
-                    return response.json();
-                })
-                .then((data) => {
-                    if (data.message == 'city not found') {
-                        setWeather('error');
+        else if (choice === 'weather2') {
+            if (checkEmptyValue()) {
+                const url = `https://api.openweathermap.org/data/2.5/weather?q=${value}&appid=${OPENWEATHERMAP_API_KEY}`;
+                const transformData = (data) => {
+                    if (data.message === 'city not found') {
+                        return 'error';
+                    } else {
+                        return {
+                            city: data.name,
+                            temp: Math.round(data.main.temp - 273),
+                            country: data.sys.country,
+                        };
                     }
-                    else {
-                        setWeather({ city: data.name, temp: Math.round(data.main.temp - 273), country: data.sys.country });
-                    }
+                };
+                fetchWeatherData(url, transformData);
+            }
 
-                    isSearched(true);
-                });
+
+        }
+
+        else {
+            setWeather('no-choice');
+            setState(true);
+        }
+
+    };
+
+    const checkEmptyValue = () => {
+        if (value !== '') {
+            return true;
+        }
+        else {
+            setWeather('error');
+            setState(true);
         }
     }
-
 
 
     return (
@@ -81,34 +118,41 @@ export const Weather = () => {
                     </form>
 
                     {
-                        searched && (
+                        state && (
 
-                            weather == 'error' ? (
+                            weather === 'no-choice' ? (
                                 <div className="weather__content">
                                     <div className="weather__error">
-                                        Введите корректное название города
+                                        Пожалуйста выберете сервис
                                     </div>
                                 </div>
                             ) :
 
-                                (
+                                weather === 'error' ? (
                                     <div className="weather__content">
-                                        <div className='weather__city'>
-                                            {weather.city}, {weather.country}
-                                        </div>
-
-                                        {
-                                            weather.localtime !== undefined &&
-                                            <div className='weather__temperature'>
-                                                Текущее время: {weather.localtime}
-                                            </div>
-                                        }
-
-                                        <div className='weather__temperature'>
-                                            Температура: {weather.temp} &#8451;
+                                        <div className="weather__error">
+                                            Введите корректное название города
                                         </div>
                                     </div>
-                                )
+                                ) :
+                                    (
+                                        <div className="weather__content">
+                                            <div className='weather__city'>
+                                                {weather.city}, {weather.country}
+                                            </div>
+
+                                            {
+                                                weather.localtime !== undefined &&
+                                                <div className='weather__temperature'>
+                                                    Текущее время: {weather.localtime}
+                                                </div>
+                                            }
+
+                                            <div className='weather__temperature'>
+                                                Температура: {weather.temp} &#8451;
+                                            </div>
+                                        </div>
+                                    )
                         )
                     }
                 </div>
